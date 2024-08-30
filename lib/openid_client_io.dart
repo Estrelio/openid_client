@@ -58,6 +58,7 @@ class Authenticator {
     this.port = 3000,
     this.urlLancher = _runBrowser,
     Iterable<String> scopes = const [],
+    bool usePkce = true,
     Uri? redirectUri,
     String? redirectMessage,
     String? prompt,
@@ -68,7 +69,7 @@ class Authenticator {
           'You can only use one variable htmlPage (give entire html) or redirectMessage (only string message)',
         ),
         redirectMessage = redirectMessage ?? 'You can now close this window',
-        flow = redirectUri == null
+        flow = usePkce
             ? Flow.authorizationCodeWithPKCE(client,
                 prompt: prompt, additionalParameters: additionalParameters)
             : Flow.authorizationCode(client,
